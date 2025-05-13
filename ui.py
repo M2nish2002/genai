@@ -1,7 +1,8 @@
 
-from langchain_google_genai import ChatGoogleGenerativeAI
+
 import streamlit as st
-from langchain_core.prompts import load_prompt,PromptTemplate
+from langchain_core.prompts import PromptTemplate
+from langchain_ollama.llms import OllamaLLM
 
 st.header("Reasearch tool")
 paper_input = st.selectbox( "Select Research Paper Name", ["Attention Is All You Need", "BERT: Pre-training of Deep Bidirectional Transformers", "GPT-3: Language Models are Few-Shot Learners", "Diffusion Models Beat GANs on Image Synthesis"] )
@@ -14,7 +15,7 @@ template = PromptTemplate(template="""\nPlease summarize the research paper titl
                           \n   - Explain the mathematical concepts using simple, intuitive code snippets where applicable.  \n2. Analogies:  \n   - Use relatable analogies to simplify complex ideas.  \nIf certain information is not available in the paper, respond with: \"Insufficient information available\" instead of guessing. 
                            \nEnsure the summary is clear, accurate, and aligned with the provided style and length.\n""",input_variables=["paper_input","style_input","length_input"])
 
-model=ChatGoogleGenerativeAI(model="gemini-2.0-flash",api_key=st.secrets["api"]["key"])
+model=OllamaLLM(model="deepseek-r1")
 
 if st.button('Summarize'):
     chain = template | model
@@ -23,4 +24,4 @@ if st.button('Summarize'):
         'style_input':style_input,
         'length_input':length_input
     })
-    st.write(result.content)
+    st.write(result)
