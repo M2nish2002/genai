@@ -14,7 +14,7 @@ template = PromptTemplate(template="""\nPlease summarize the research paper titl
                           \n   - Explain the mathematical concepts using simple, intuitive code snippets where applicable.  \n2. Analogies:  \n   - Use relatable analogies to simplify complex ideas.  \nIf certain information is not available in the paper, respond with: \"Insufficient information available\" instead of guessing. 
                            \nEnsure the summary is clear, accurate, and aligned with the provided style and length.\n""",input_variables=["paper_input","style_input","length_input"])
 
-model=ChatGoogleGenerativeAI(model="gemini-2.0-flash",api_key=key)
+model=ChatGoogleGenerativeAI(model="gemini-2.0-flash",api_key=st.secrets["api"]["key"])
 
 if st.button('Summarize'):
     chain = template | model
