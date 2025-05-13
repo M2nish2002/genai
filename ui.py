@@ -1,4 +1,4 @@
-from api import key
+
 from langchain_google_genai import ChatGoogleGenerativeAI
 import streamlit as st
 from langchain_core.prompts import load_prompt,PromptTemplate
